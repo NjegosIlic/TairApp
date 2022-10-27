@@ -1,0 +1,37 @@
+[
+  {
+    "resultsPath": "/Users/njegosilic/Documents/AplikacijaTairNest/aplikacija/output",
+    "pluralizeNames": true,
+    "noConfigs": false,
+    "convertCaseFile": "pascal",
+    "convertCaseEntity": "pascal",
+    "convertCaseProperty": "camel",
+    "convertEol": "LF",
+    "propertyVisibility": "none",
+    "lazy": false,
+    "activeRecord": false,
+    "generateConstructor": false,
+    "customNamingStrategyPath": "",
+    "relationIds": false,
+    "strictMode": "none",
+    "skipSchema": false,
+    "indexFile": false,
+    "exportType": "named"
+  },
+  {
+    "host": "localhost",
+    "port": 3306,
+    "databaseNames": [
+      "AplikacijaTair"
+    ],
+    "user": "NjegosAplikacija",
+    "password": "shalom777",
+    "databaseType": "mysql",
+    "schemaNames": [
+      ""
+    ],
+    "ssl": false,
+    "skipTables": [],
+    "onlyTables": []
+  }
+]

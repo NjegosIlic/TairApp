@@ -17,4 +17,8 @@ export class AppController {
     getAllAdmins(): Promise<Administrator[]> {
         return this.administratorService.getAll();
     }
+
+    //add
+    //editById
+    //deleteById
 }

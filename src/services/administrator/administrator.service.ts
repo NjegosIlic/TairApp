@@ -5,6 +5,7 @@ import { AddAdministratorDto } from 'src/dtos/administrator/add.administrator.dt
 import { EditAdministratorDto } from 'src/dtos/administrator/edit.administrator.dto';
 import { ApiResponse } from 'src/misc/api.response.class';
 import { PrimaryGeneratedColumn, Repository } from 'typeorm';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class AdministratorService {

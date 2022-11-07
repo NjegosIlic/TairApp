@@ -47,6 +47,8 @@ import { ArticleConrtoler } from './controlers/api/article.controler';
       Administrator,
       Category, 
       Article,
+      ArticlePrice,
+      ArticleFeature,
     ])
   ],
   controllers: [

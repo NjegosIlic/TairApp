@@ -18,6 +18,19 @@ export class AdministratorService {
         return this.administrator.find();
     }
 
+    async getByUsername(usernameString: string): Promise<Administrator | null> {
+        const admin = await this.administrator.findOne({where: {
+            username: usernameString
+        }});
+
+        if (admin) {
+            return admin;
+        }
+
+        return null;
+
+    }
+
     getById(id: number): Promise<Administrator> {
         return this.administrator.findOne({
             where: {administratorId:id}
@@ -33,7 +46,6 @@ export class AdministratorService {
 
         const passwordHash = crypto.createHash('sha512');
         passwordHash.update(data.password);
-
         const passwordHashString = passwordHash.digest('hex').toUpperCase();
 
         let newAdmin: Administrator = new Administrator();

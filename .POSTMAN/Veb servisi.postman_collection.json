@@ -1,0 +1,492 @@
+{
+	"info": {
+		"_postman_id": "ef5d7fc1-2d2b-4bcb-936f-e8eb9a6d3fcd",
+		"name": "Veb servisi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24390631"
+	},
+	"item": [
+		{
+			"name": "Administrator",
+			"item": [
+				{
+					"name": "Get all administrator",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/administrator/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"administrator",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a single administrator",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/administrator/16/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"administrator",
+								"16",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a new administrator",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin34\",\n    \"password\": \"admin34\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/administrator/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"administrator",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit an existing administrator",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"novalozinka\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/administrator/78/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"administrator",
+								"78",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit non existing administrator",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"novipass3344\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/administrator/560/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"administrator",
+								"560",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a single non existing admonistrator",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/administrator/56/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"administrator",
+								"56",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbmlzdHJhdG9ySWQiOjIxLCJ1c2VybmFtZSI6IlRlc3RWYW5qYSIsImV4dCI6MTY2OTQ3MDk0Mi4xMDgsImlwIjoiOjoxIiwidWEiOiJQb3N0bWFuUnVudGltZS83LjI5LjIiLCJpYXQiOjE2NjgyNjEzNDJ9.m8omNlOlXHyqbsegcqW89vvvwfF-zdFohN8F0vqFh8Q",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Articles",
+			"item": [
+				{
+					"name": "createFull",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Acme HD11 1TB\",\n    \"categoryId\": 5,\n    \"excert\": \"Neki kratak tekst.\",\n    \"decription\": \"Neki duzi tekst o proizvodu.\",\n    \"price\": 56.89,\n    \"features\": [\n        {\n        \"featureId\": 1,\n        \"value\": \"1TB\"\n        },\n        {\n        \"featureId\": 3,\n        \"value\": \"SSD\"\n        }\n    ]    \n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/article/createFull/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"article",
+								"createFull",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"TestVanja\",\n    \"password\": \"plavusa\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login - corect username and password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"TestVanja\",\n    \"password\": \"plavusa\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/auth/login/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"auth",
+										"login",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "301"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"12d-GsBrFQmCwCFctiTedtDyHyEHcb8\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Nov 2022 13:55:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"administratorId\": 21,\n    \"username\": \"TestVanja\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbmlzdHJhdG9ySWQiOjIxLCJ1c2VybmFtZSI6IlRlc3RWYW5qYSIsImV4dCI6MTY2OTQ3MDk0Mi4xMDgsImlwIjoiOjoxIiwidWEiOiJQb3N0bWFuUnVudGltZS83LjI5LjIiLCJpYXQiOjE2NjgyNjEzNDJ9.m8omNlOlXHyqbsegcqW89vvvwfF-zdFohN8F0vqFh8Q\"\n}"
+						},
+						{
+							"name": "Login - password incorect, username exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"TestVanja\",\n    \"password\": \"plavusa1\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/auth/login/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"auth",
+										"login",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"34-yGnd1fUn+KRemOJUJKfIJoExxS4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Nov 2022 13:58:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"error\",\n    \"statusCode\": -3002,\n    \"message\": null\n}"
+						},
+						{
+							"name": "Login - username doesn't exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"TestVanja2\",\n    \"password\": \"plavusa\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/auth/login/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"auth",
+										"login",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"34-jVzHjGg0W81AgoBNOOnaoLkouLY\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 12 Nov 2022 13:59:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"error\",\n    \"statusCode\": -3001,\n    \"message\": null\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

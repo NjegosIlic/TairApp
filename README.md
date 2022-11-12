@@ -1,4 +1,4 @@
-## Aplikacija za ucenje NestJS
+# Aplikacija za ucenje NestJS
 
-#Aplikacija za prodaju tehnicke opreme
+## Aplikacija za prodaju tehnicke opreme
 Neki tekst

@@ -57,53 +57,49 @@ export class ArticleConrtoler {
             storage: diskStorage({
                 destination: StorageConfig.photoDestination,
                 filename: (req, file, callback) => {
+                    let original: string = file.originalname;
 
-                    // Neka slika .jpg ->
-                    // '20221015-8765867961-Neka-slika.jpg''
-
-                    let original: string = file.originalName;
-
-                    let normalised = original.replace(/\s+/g, '-');
-                    normalised = normalised.replace(/[^A-z0-9\.\-]/g, '');
+                    let normalized = original.replace(/\s+/g, '-');
+                    normalized = normalized.replace(/[^A-z0-9\.\-]/g, '');
                     let sada = new Date();
                     let datePart = '';
                     datePart += sada.getFullYear().toString();
                     datePart += (sada.getMonth() + 1).toString();
                     datePart += sada.getDate().toString();
 
-                    let randomPart: string = 
+                    let randomPart: string =
                         new Array(10)
-                        .fill(0)
-                        .map(e => (Math.random() * 9).toFixed(0).toString())
-                        .join('');
+                            .fill(0)
+                            .map(e => (Math.random() * 9).toFixed(0).toString())
+                            .join('');
 
-                    let fileName = datePart + '-' + randomPart + '-' + normalised;
-
-                    fileName = fileName.toLowerCase();
+                    let fileName = datePart + '-' + randomPart + '-' + normalized;
+                    fileName = fileName.toLocaleLowerCase();
 
                     callback(null, fileName);
                 }
             }),
-
             fileFilter: (req, file, callback) => {
-                // 1. check ekstenzije: jpg, png
-                if (!file.originalname.match(/\.(jpg|png)$/)) {
-                    callback(new Error('Bad file extension. Prvi IF'), false);
+                // 1. Check ekstenzije: JPG, PNG
+                if (!file.originalname.toLowerCase().match(/\.(jpg|png)$/)) {
+                    req.fileFilterError = 'Bad file extension!';
+                    callback(null, false);
                     return;
                 }
 
-                // 2. check tipa sadrzaja: image/jpeg, image/png (mimetype)
+                // 2. Check tipa sadrzaja: image/jpeg, image/png (mimetype)
                 if (!(file.mimetype.includes('jpeg') || file.mimetype.includes('png'))) {
-                    callback(new Error('Bad file content. Ne valja fajl, drugi IF!'), false);
+                    req.fileFilterError = 'Bad file content type!';
+                    callback(null, false);
                     return;
                 }
 
-                callback (null, true);
+                callback(null, true);
             },
             limits: {
                 files: 1,
-                fieldSize: StorageConfig.photoMaxFileSize,
-            }
+                fileSize: StorageConfig.photoMaxFileSize,
+            },
 
         })
     )

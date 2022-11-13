@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Param, Post, Req, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Crud } from "@nestjsx/crud";
 import { Article } from "entities/article.entity";
@@ -103,8 +103,26 @@ export class ArticleConrtoler {
 
         })
     )
-    async uploadPhoto(@Param('id') articleId: number, @UploadedFile() photo): Promise <ApiResponse | Photo> {
+    async uploadPhoto
+        (@Param('id') articleId: number, 
+        @UploadedFile() photo,
+        @Req() req 
+        
+        ): Promise <ApiResponse | Photo> {
+
+        if (req.fileFilterError) {
+            return new ApiResponse('error', -4002, req.fileFilterError);
+        }
+    
+        if (!photo) {
+            return new ApiResponse('error', -4002, 'File not uploaded!');
+        }
+        
         let imagePath = photo.filename; // u zapis u bazu podataka
+
+        // TODO: Real myme type check
+
+        // TODO: Save resided file
 
         const newPhoto: Photo = new Photo();
         newPhoto.articleId = articleId;

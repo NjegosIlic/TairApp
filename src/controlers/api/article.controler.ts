@@ -10,6 +10,8 @@ import { fileName } from "typeorm-model-generator/dist/src/NamingStrategy";
 import { Photo } from "entities/photo.entity";
 import { PhotoeService } from "src/services/photo/photo.service";
 import { ApiResponse } from "src/misc/api.response.class";
+import * as fileType from 'file-type';
+import * as fs from 'fs';
 
 @Controller('api/article')
 @Crud({
@@ -121,6 +123,17 @@ export class ArticleConrtoler {
         let imagePath = photo.filename; // u zapis u bazu podataka
 
         // TODO: Real myme type check
+        const fileTypeResult = await fileType.fileTypeFromFile(photo.path);
+        if (!fileTypeResult) {
+            fs.unlinkSync(photo.path);
+            return new ApiResponse('error', -4002, 'Cannot detect file type!');
+        }
+
+        const realMimeType = fileTypeResult.mime;
+        if (!(realMimeType.includes('jpeg') || realMimeType.includes('png'))) {
+            fs.unlinkSync(photo.path);
+            return new ApiResponse('error', -4002, 'Bad file content type!');
+        }
 
         // TODO: Save resided file
 

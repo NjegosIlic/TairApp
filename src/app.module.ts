@@ -22,6 +22,8 @@ import { ArticleConrtoler } from './controlers/api/article.controler';
 import { authConotroller } from './controlers/api/auth.controller';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import { PhotoeService } from './services/photo/photo.service';
+import { FeatureService } from './services/feature/feature.service';
+import { FeatureConrtoler } from './controlers/api/feature.controler';
 
 @Module({
   imports: [
@@ -66,12 +68,14 @@ import { PhotoeService } from './services/photo/photo.service';
     CategoryConrtoler,
     ArticleConrtoler,
     authConotroller,
+    FeatureConrtoler,
   ],
   providers: [
     AdministratorService, 
     CategoryService,
     ArticleService,
     PhotoeService,
+    FeatureService,
   ],
   exports: [
     AdministratorService

@@ -5,7 +5,7 @@ import { Photo } from "src/entities/photo.entity";
 import { Repository } from "typeorm";
 
 @Injectable()
-export class PhotoeService extends TypeOrmCrudService<Photo> {
+export class PhotoService extends TypeOrmCrudService<Photo> {
     constructor( 
         @InjectRepository(Photo) private readonly photo: Repository<Photo>  // cim uvedemo neki category moramo da ga navedemo u app modulu
 
@@ -15,5 +15,9 @@ export class PhotoeService extends TypeOrmCrudService<Photo> {
 
     add(newPhoto: Photo): Promise<Photo> {
         return this.photo.save(newPhoto);
+    }
+
+    async deleteById(id: number){
+        return await this.photo.delete(id);
     }
 }

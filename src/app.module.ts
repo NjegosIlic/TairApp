@@ -21,7 +21,7 @@ import { ArticleService } from './services/article/article.service';
 import { ArticleConrtoler } from './controlers/api/article.controler';
 import { authConotroller } from './controlers/api/auth.controller';
 import { AuthMiddleware } from './middlewares/auth.middleware';
-import { PhotoeService } from './services/photo/photo.service';
+import { PhotoService } from './services/photo/photo.service';
 import { FeatureService } from './services/feature/feature.service';
 import { FeatureConrtoler } from './controlers/api/feature.controler';
 
@@ -74,7 +74,7 @@ import { FeatureConrtoler } from './controlers/api/feature.controler';
     AdministratorService, 
     CategoryService,
     ArticleService,
-    PhotoeService,
+    PhotoService,
     FeatureService,
   ],
   exports: [

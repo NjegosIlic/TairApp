@@ -10,7 +10,7 @@ import { FeatureService } from "src/services/feature/feature.service";
     },
     params: {
         id: {
-            field: 'feature_id',
+            field: 'featureId',
             type: 'number',
             primary: true
         }

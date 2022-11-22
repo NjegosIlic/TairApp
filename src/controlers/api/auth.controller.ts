@@ -9,10 +9,14 @@ import * as jwt from 'jsonwebtoken';
 import { JwtDataAdministratorDto } from "src/dtos/administrator/jwt.data.administrator.dto";
 import { Request} from 'express';
 import { jwtSecret } from "config/jwt.secret";
+import { UserRegistrationDto } from "src/dtos/user/user.registration.dto";
+import { UserService } from "src/services/user/user.service";
 
 @Controller('auth')
 export class authConotroller {
-    constructor(public administratorService: AdministratorService) {}
+    constructor(public administratorService: AdministratorService,
+                public userService: UserService,
+        ) {}
 
         @Post('login') // http://localhost:3000/auth/login/
         async doLogin(@Body() data: LoginAdministratorDto, @Req() req: Request): Promise<LoginInfoAdministratorDto | ApiResponse> {
@@ -60,6 +64,10 @@ export class authConotroller {
         );
 
         return new Promise(resolve => resolve(responseObject));
+    }
 
+    @Post('user/register') // POST http://localhost:3000/auth/user/register/
+    async userRegister(@Body() data: UserRegistrationDto) {
+        return await this.userService.register(data);
     }
 }

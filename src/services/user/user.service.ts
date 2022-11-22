@@ -6,11 +6,13 @@ import { Repository } from "typeorm";
 import { UserRegistrationDto } from "src/dtos/user/user.registration.dto";
 import { ApiResponse } from "src/misc/api.response.class";
 import * as crypto from 'crypto';
+import { UserToken } from "src/entities/user-token.entity";
 
 @Injectable()
 export class UserService extends TypeOrmCrudService<User> {
     constructor(
         @InjectRepository(User) private readonly user: Repository<User>,
+        @InjectRepository(UserToken) private readonly userToken: Repository<UserToken>,
     ) {
         super(user);
     }
@@ -39,5 +41,22 @@ export class UserService extends TypeOrmCrudService<User> {
         } catch (e) {
             return new ApiResponse('error', -6001, 'This user account cannot be created.');
         }
+    }
+
+    async getById(id) {
+        return await this.user.findOne(id);
+    }
+
+    async getByEmail(email: string): Promise<User | null> {
+        const user = await this.user.findOne({where: {
+            email: email
+        }});
+
+        if (user) {
+            return user;
+        }
+
+        return null;
+
     }
 }

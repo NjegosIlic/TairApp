@@ -12,7 +12,7 @@ import { UserToken } from "src/entities/user-token.entity";
 export class UserService extends TypeOrmCrudService<User> {
     constructor(
         @InjectRepository(User) private readonly user: Repository<User>,
-        @InjectRepository(UserToken) private readonly userToken: Repository<UserToken>,
+        // @InjectRepository(UserToken) private readonly userToken: Repository<UserToken>,
     ) {
         super(user);
     }

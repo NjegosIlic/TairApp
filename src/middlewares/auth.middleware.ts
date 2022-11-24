@@ -18,7 +18,7 @@ export class AuthMiddleware implements NestMiddleware{
         
         
         if (!req.headers.authorization) {
-            throw new HttpException('Token not found!', HttpStatus.UNAUTHORIZED);
+            throw new HttpException('Token not found! Ovo je taj', HttpStatus.UNAUTHORIZED);
         }
 
         const token = req.headers.authorization;

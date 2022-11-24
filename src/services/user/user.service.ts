@@ -6,13 +6,11 @@ import { Repository } from "typeorm";
 import { UserRegistrationDto } from "src/dtos/user/user.registration.dto";
 import { ApiResponse } from "src/misc/api.response.class";
 import * as crypto from 'crypto';
-import { UserToken } from "src/entities/user-token.entity";
 
 @Injectable()
 export class UserService extends TypeOrmCrudService<User> {
     constructor(
         @InjectRepository(User) private readonly user: Repository<User>,
-        // @InjectRepository(UserToken) private readonly userToken: Repository<UserToken>,
     ) {
         super(user);
     }
@@ -28,7 +26,7 @@ export class UserService extends TypeOrmCrudService<User> {
         newUser.forename      = data.forename;
         newUser.surname       = data.surname;
         newUser.phoneNumber   = data.phoneNumber;
-        newUser.postalAdress  = data.postalAddress;
+        newUser.postalAddress  = data.postalAddress;
 
         try {
             const savedUser = await this.user.save(newUser);
@@ -38,8 +36,9 @@ export class UserService extends TypeOrmCrudService<User> {
             }
 
             return savedUser;
+
         } catch (e) {
-            return new ApiResponse('error', -6001, 'This user account cannot be created.');
+            return new ApiResponse('error', -6001, 'This user account cannot be created. PRVI ERROR');
         }
     }
 

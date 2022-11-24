@@ -98,7 +98,7 @@
 				{
 					"name": "Edit an existing administrator",
 					"request": {
-						"method": "PUT",
+						"method": "PATCH",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -126,66 +126,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Edit non existing administrator",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"password\": \"novipass3344\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/administrator/560/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"administrator",
-								"560",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get a single non existing admonistrator",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:3000/api/administrator/56/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"administrator",
-								"56",
-								""
-							]
-						}
-					},
-					"response": []
 				}
 			],
 			"auth": {
@@ -193,7 +133,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbmlzdHJhdG9ySWQiOjIxLCJ1c2VybmFtZSI6IlRlc3RWYW5qYSIsImV4dCI6MTY2OTQ3MDk0Mi4xMDgsImlwIjoiOjoxIiwidWEiOiJQb3N0bWFuUnVudGltZS83LjI5LjIiLCJpYXQiOjE2NjgyNjEzNDJ9.m8omNlOlXHyqbsegcqW89vvvwfF-zdFohN8F0vqFh8Q",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW5pc3RyYXRvciIsImlkIjoyMiwidXNlcm5hbWUiOiJhZG1pbiIsImV4dCI6MTY3MDQ0OTE0MC41NzQsImlwIjoiOjoxIiwidWEiOiJQb3N0bWFuUnVudGltZS83LjI5LjIiLCJpYXQiOjE2NjkyMzk1NDB9.nked7SOtbDpnVZZewMyS4X_EfrlRthru0rFcDiMyXeE",
 						"type": "string"
 					}
 				]
@@ -253,6 +193,493 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Upload article photo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/Users/njegosilic/Downloads/hdd-icon.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/article/2/uploadPhoto/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"article",
+								"2",
+								"uploadPhoto",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Upload article photo - bad file extension",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "photo",
+											"type": "file",
+											"src": "/Users/njegosilic/Downloads/hard disk.webp"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/article/2/uploadPhoto/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"article",
+										"2",
+										"uploadPhoto",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "69"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"45-/1BctOZfI9HUiikyGHz7sO4T6hY\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 13 Nov 2022 18:25:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"error\",\n    \"statusCode\": -4002,\n    \"message\": \"Bad file extension!\"\n}"
+						},
+						{
+							"name": "Upload article photo - file to large",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "photo",
+											"type": "file",
+											"src": "/Users/njegosilic/Downloads/hdd-icon.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/article/2/uploadPhoto/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"article",
+										"2",
+										"uploadPhoto",
+										""
+									]
+								}
+							},
+							"status": "Payload Too Large",
+							"code": 413,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-GtNRsf+DjNWCwgmuatBIerKYgxk\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 13 Nov 2022 18:55:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 413,\n    \"message\": \"File too large\",\n    \"error\": \"Payload Too Large\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get a single article",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/article/2/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"article",
+								"2",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a single article photo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/article/2/deletePhoto/7/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"article",
+								"2",
+								"deletePhoto",
+								"7",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete a single article photo",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/article/2/deletePhoto/7/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"article",
+										"2",
+										"deletePhoto",
+										"7",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "61"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3d-EPvOlDLL44snnM4WQSDM7EsUZSQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Nov 2022 22:25:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"ok\",\n    \"statusCode\": 0,\n    \"message\": \"One photo deleted!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Edit a single article without editing features",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"ACME HD11 1024GB\",\n    \"categoryId\": 5,\n    \"excert\": \"Neki kratak tekst 2...\",\n    \"decription\": \"Neki malo duzi tekst o proizvodu 2...\",\n    \"status\": \"visible\",\n    \"isPromoted\": 1,\n    \"price\": 57.11,\n    \"features\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/article/2/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"article",
+								"2",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Edit a single article without editing features",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"ACME HD11 1024GB\",\n    \"categoryId\": 5,\n    \"excert\": \"Neki kratak tekst 2...\",\n    \"decription\": \"Neki malo duzi tekst o proizvodu 2...\",\n    \"status\": \"visible\",\n    \"isPromoted\": 1,\n    \"price\": 57.11,\n    \"features\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/article/2/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"article",
+										"2",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "791"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"317-BaxiZoH7oH6uiqBP625InwtWPY8\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 16:52:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"articleId\": 2,\n    \"name\": \"ACME HD11 1024GB\",\n    \"categoryId\": 5,\n    \"excerpt\": \"Neki kratak tekst 2...\",\n    \"description\": \"Neki malo duzi tekst o proizvodu 2...\",\n    \"status\": \"visible\",\n    \"isPromoted\": 1,\n    \"createdAt\": \"2022-11-06T20:47:06.000Z\",\n    \"category\": {\n        \"categoryId\": 5,\n        \"name\": \"Hard diskovi\",\n        \"imagePath\": \"assets/pc/memory/hdd.jpg\",\n        \"parentCategoryId\": 4\n    },\n    \"articleFeatures\": [\n        {\n            \"articleFeatureId\": 4,\n            \"articleId\": 2,\n            \"featureId\": 1,\n            \"value\": \"1TB\"\n        },\n        {\n            \"articleFeatureId\": 5,\n            \"articleId\": 2,\n            \"featureId\": 3,\n            \"value\": \"SSD\"\n        }\n    ],\n    \"features\": [\n        {\n            \"featureId\": 1,\n            \"name\": \"Kapacitet\",\n            \"categoryId\": 5\n        },\n        {\n            \"featureId\": 3,\n            \"name\": \"Tehnologija\",\n            \"categoryId\": 5\n        }\n    ],\n    \"articlePrices\": [\n        {\n            \"articlePriceId\": 3,\n            \"articleId\": 2,\n            \"price\": \"56.89\",\n            \"createdAt\": \"2022-11-06T20:47:06.000Z\"\n        },\n        {\n            \"articlePriceId\": 4,\n            \"articleId\": 2,\n            \"price\": \"57.11\",\n            \"createdAt\": \"2022-11-22T16:52:04.000Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Edit a single article with editing features",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"ACME HD11 1024GB\",\n    \"categoryId\": 5,\n    \"excert\": \"Neki kratak tekst 2...\",\n    \"decription\": \"Neki malo duzi tekst o proizvodu 2...\",\n    \"status\": \"visible\",\n    \"isPromoted\": 1,\n    \"price\": 57.11,\n    \"features\": [\n        {\n            \"featureId\": 1,\n            \"value\": \"1024GB\"\n        },\n        {\n            \"featureId\": 2,\n            \"value\": \"SATA 3.0\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/article/2/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"article",
+								"2",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Edit a single article with editing features",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"ACME HD11 1024GB\",\n    \"categoryId\": 5,\n    \"excert\": \"Neki kratak tekst 2...\",\n    \"decription\": \"Neki malo duzi tekst o proizvodu 2...\",\n    \"status\": \"visible\",\n    \"isPromoted\": 1,\n    \"price\": 57.11,\n    \"features\": [\n        {\n            \"featureId\": 1,\n            \"value\": \"1024GB\"\n        },\n        {\n            \"featureId\": 2,\n            \"value\": \"SATA 3.0\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/article/2/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"article",
+										"2",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "791"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"317-HS+sh3Cw2KJMJF48aTCorzox1kk\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 16:58:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"articleId\": 2,\n    \"name\": \"ACME HD11 1024GB\",\n    \"categoryId\": 5,\n    \"excerpt\": \"Neki kratak tekst 2...\",\n    \"description\": \"Neki malo duzi tekst o proizvodu 2...\",\n    \"status\": \"visible\",\n    \"isPromoted\": 1,\n    \"createdAt\": \"2022-11-06T20:47:06.000Z\",\n    \"category\": {\n        \"categoryId\": 5,\n        \"name\": \"Hard diskovi\",\n        \"imagePath\": \"assets/pc/memory/hdd.jpg\",\n        \"parentCategoryId\": 4\n    },\n    \"articleFeatures\": [\n        {\n            \"articleFeatureId\": 6,\n            \"articleId\": 2,\n            \"featureId\": 1,\n            \"value\": \"1024GB\"\n        },\n        {\n            \"articleFeatureId\": 7,\n            \"articleId\": 2,\n            \"featureId\": 2,\n            \"value\": \"SATA 3.0\"\n        }\n    ],\n    \"features\": [\n        {\n            \"featureId\": 1,\n            \"name\": \"Kapacitet\",\n            \"categoryId\": 5\n        },\n        {\n            \"featureId\": 2,\n            \"name\": \"Tip\",\n            \"categoryId\": 5\n        }\n    ],\n    \"articlePrices\": [\n        {\n            \"articlePriceId\": 3,\n            \"articleId\": 2,\n            \"price\": \"56.89\",\n            \"createdAt\": \"2022-11-06T20:47:06.000Z\"\n        },\n        {\n            \"articlePriceId\": 4,\n            \"articleId\": 2,\n            \"price\": \"57.11\",\n            \"createdAt\": \"2022-11-22T16:52:04.000Z\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -260,7 +687,7 @@
 			"name": "Auth",
 			"item": [
 				{
-					"name": "Login",
+					"name": "User Login",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -272,10 +699,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"TestVanja\",\n    \"password\": \"plavusa\"\n}"
+							"raw": "{\n    \"email\": \"njegos.ilic1986@gmail.com\",\n    \"password\": \"shalom777\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/auth/login/",
+							"raw": "http://localhost:3000/auth/user/login/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -283,6 +710,106 @@
 							"port": "3000",
 							"path": [
 								"auth",
+								"user",
+								"login",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "User Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"njegos.ilic1986@gmail.com\",\n    \"password\": \"shalom777\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/auth/user/login/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"auth",
+										"user",
+										"login",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "327"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"147-jClFFMYh5G8E8DOj9vXjShfo7WE\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2022 21:26:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 15,\n    \"identity\": \"njegos.ilic1986@gmail.com\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciIsImlkIjoxNSwidXNlcm5hbWUiOiJuamVnb3MuaWxpYzE5ODZAZ21haWwuY29tIiwiZXh0IjoxNjcwNDQ4MzkwLjY3MywiaXAiOiI6OjEiLCJ1YSI6IlBvc3RtYW5SdW50aW1lLzcuMjkuMiIsImlhdCI6MTY2OTIzODc5MH0.Z4HzfgWF46ZuqaEmMdoEOMv2vbL1rdoKECegCbtt3Hc\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Administrator Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/administrator/login/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"administrator",
 								"login",
 								""
 							]
@@ -485,8 +1012,652 @@
 							"body": "{\n    \"status\": \"error\",\n    \"statusCode\": -3001,\n    \"message\": null\n}"
 						}
 					]
+				},
+				{
+					"name": "Register a new user account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@test.rs\",\n    \"password\": \"abc\",\n    \"forename\": \"Pera\",\n    \"surname\": \"Peric\",\n    \"phoneNumber\": \"+38765706486\",\n    \"postalAddress\": \"Nepoznata adresa bb, Glavna luka, Nedodjija\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/user/register/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"user",
+								"register",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register a new user account",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"test@test.rs\",\n    \"password\": \"abc\",\n    \"forename\": \"Pera\",\n    \"surname\": \"Peric\",\n    \"phoneNumber\": \"+38765706486\",\n    \"postalAddress\": \"Nepoznata adresa bb, Glavna luka, Nedodjija\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/auth/user/register/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"auth",
+										"user",
+										"register",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "307"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"133-8jC11updOzOsyPPx6ploqph8SlY\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 18:46:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"email\": \"test@test.rs\",\n    \"passwordHash\": \"DDAF35A193617ABACC417349AE20413112E6FA4E89A97EA20A9EEEE64B55D39A2192992A274FC1A836BA3C23A3FEEBBD454D4423643CE80E2A9AC94FA54CA49F\",\n    \"forename\": \"Pera\",\n    \"surname\": \"Peric\",\n    \"phoneNumber\": \"+38765706486\",\n    \"postalAdress\": \"Nepoznata adresa bb, Glavna luka, Nedodjija\",\n    \"userId\": 1\n}"
+						},
+						{
+							"name": "Register a new user account - error - user account can not be created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"test@test.rs\",\n    \"password\": \"abc\",\n    \"forename\": \"Pera\",\n    \"surname\": \"Peric\",\n    \"phoneNumber\": \"+38765706486\",\n    \"postalAddress\": \"Nepoznata adresa bb, Glavna luka, Nedodjija\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/auth/user/register/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"auth",
+										"user",
+										"register",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "86"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"56-VuqYQySskYqvQH7gh7bQmiDrU0M\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 18:46:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"error\",\n    \"statusCode\": -6001,\n    \"message\": \"This user account cannot be created.\"\n}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
+		},
+		{
+			"name": "Feature",
+			"item": [
+				{
+					"name": "Get all features",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/feature/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"feature",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all features - all good",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/api/feature/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"feature",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "477"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1dd-LB9FKtuNIY9fHZ332UQINVlJBS8\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Nov 2022 19:57:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"featureId\": 1,\n        \"name\": \"Kapacitet\",\n        \"categoryId\": 5,\n        \"category\": {\n            \"categoryId\": 5,\n            \"name\": \"Hard diskovi\",\n            \"imagePath\": \"assets/pc/memory/hdd.jpg\",\n            \"parentCategoryId\": 4\n        }\n    },\n    {\n        \"featureId\": 3,\n        \"name\": \"Tehnologija\",\n        \"categoryId\": 5,\n        \"category\": {\n            \"categoryId\": 5,\n            \"name\": \"Hard diskovi\",\n            \"imagePath\": \"assets/pc/memory/hdd.jpg\",\n            \"parentCategoryId\": 4\n        }\n    },\n    {\n        \"featureId\": 2,\n        \"name\": \"Tip\",\n        \"categoryId\": 5,\n        \"category\": {\n            \"categoryId\": 5,\n            \"name\": \"Hard diskovi\",\n            \"imagePath\": \"assets/pc/memory/hdd.jpg\",\n            \"parentCategoryId\": 4\n        }\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get a single feature",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/feature/3/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"feature",
+								"3",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get a single feature",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/api/feature/2/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"feature",
+										"2",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "153"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"99-Y3Dw+HEmku4MaE10ND6xwCBafYs\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 12:32:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"featureId\": 2,\n    \"name\": \"Tip\",\n    \"categoryId\": 5,\n    \"category\": {\n        \"categoryId\": 5,\n        \"name\": \"Hard diskovi\",\n        \"imagePath\": \"assets/pc/memory/hdd.jpg\",\n        \"parentCategoryId\": 4\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Add a new feature",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Proizvodjac\",\n    \"categoryId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/feature/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"feature",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add a new fature",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Radni napon\",\n    \"categoryId\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/feature/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"feature",
+										""
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "161"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a1-9oBmdT6Qojy7XpEmkpiMtoKgfDQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 22:48:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"featureId\": 18,\n    \"name\": \"Radni napon\",\n    \"categoryId\": 2,\n    \"category\": {\n        \"categoryId\": 2,\n        \"name\": \"Kucna elektronika\",\n        \"imagePath\": \"assets/home.jpg\",\n        \"parentCategoryId\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Edit a single feature",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Napon\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/feature/18/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"feature",
+								"18",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Edit a single feature",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Napon\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/feature/18/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"feature",
+										"18",
+										""
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "155"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"9b-V/KhcW/4b8aTuyTyJ6ziVdmTxBM\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Nov 2022 19:22:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"featureId\": 18,\n    \"name\": \"Napon\",\n    \"categoryId\": 2,\n    \"category\": {\n        \"categoryId\": 2,\n        \"name\": \"Kucna elektronika\",\n        \"imagePath\": \"assets/home.jpg\",\n        \"parentCategoryId\": null\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbmlzdHJhdG9ySWQiOjIyLCJ1c2VybmFtZSI6ImFkbWluIiwiZXh0IjoxNjcwMDk3MzM2LjMxMiwiaXAiOiI6OjEiLCJ1YSI6IlBvc3RtYW5SdW50aW1lLzcuMjkuMiIsImlhdCI6MTY2ODg4NzczNn0.EjP-13LY6Q6sew2jcyUDMaFQfqc2AxQvrzYyqKgMlEE",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

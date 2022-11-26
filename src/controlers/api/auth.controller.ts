@@ -4,7 +4,7 @@ import { ApiResponse } from "src/misc/api.response.class";
 import { AdministratorService } from "src/services/administrator/administrator.service";
 import { resolve } from "dns";
 import * as crypto from 'crypto';
-import { LoginInfoDto } from "src/dtos/auth/login.info";
+import { LoginInfoDto } from "src/dtos/auth/login.info.dto";
 import * as jwt from 'jsonwebtoken';
 import { JwtDataDto } from "src/dtos/auth/jwt.data.dto";
 import { Request} from 'express';
@@ -27,7 +27,7 @@ export class authConotroller {
                 return new Promise(resolve => resolve(new ApiResponse('error', -3001)))
             }
 
-            const passwordHash = crypto.createHash('sha512');
+        const passwordHash = crypto.createHash('sha512');
         passwordHash.update(data.password);
         const passwordHashString = passwordHash.digest('hex').toUpperCase();
 

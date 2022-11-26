@@ -26,7 +26,7 @@ export class UserService extends TypeOrmCrudService<User> {
         newUser.forename      = data.forename;
         newUser.surname       = data.surname;
         newUser.phoneNumber   = data.phoneNumber;
-        newUser.postalAddress  = data.postalAddress;
+        newUser.postalAddress = data.postalAddress;
 
         try {
             const savedUser = await this.user.save(newUser);

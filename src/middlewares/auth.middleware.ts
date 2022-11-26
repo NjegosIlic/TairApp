@@ -1,10 +1,9 @@
-import { HttpException, HttpStatus, Injectable, NestMiddleware } from "@nestjs/common";
+import { NestMiddleware, HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { NextFunction, Request, Response } from "express";
-import { AdministratorService } from "src/services/administrator/administrator.service";
 import * as jwt from 'jsonwebtoken';
 import { JwtDataDto } from "src/dtos/auth/jwt.data.dto";
 import { jwtSecret } from "config/jwt.secret";
-import { dataCollectionPhase } from "typeorm-model-generator/dist/src/Engine";
+import { AdministratorService } from "src/services/administrator/administrator.service";
 import { UserService } from "src/services/user/user.service";
 
 @Injectable()
@@ -15,10 +14,9 @@ export class AuthMiddleware implements NestMiddleware{
         ) { }
 
     async use(req: Request, res: Response, next: NextFunction) {  
-        
-        
+
         if (!req.headers.authorization) {
-            throw new HttpException('Token not found! Ovo je taj', HttpStatus.UNAUTHORIZED);
+            throw new HttpException('Token not found! Ovde ga odmah izbaci', HttpStatus.UNAUTHORIZED);
         }
 
         const token = req.headers.authorization;
@@ -59,8 +57,8 @@ export class AuthMiddleware implements NestMiddleware{
             const user = await this.userService.getById(jwtData.id);
             if (!user) {
                 throw new HttpException('Account not found!', HttpStatus.UNAUTHORIZED);
+            }
         }
-
         const trenutniTimestamp = new Date().getTime() / 1000;
         if (trenutniTimestamp >= jwtData.exp) {
             throw new HttpException('The token has expired!', HttpStatus.UNAUTHORIZED);
@@ -69,6 +67,5 @@ export class AuthMiddleware implements NestMiddleware{
         req.token = jwtData;
 
         next();
-        }
     }
-}
+} 

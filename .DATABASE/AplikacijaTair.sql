@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 12, 2022 at 12:58 PM
+-- Generation Time: Nov 27, 2022 at 04:39 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -65,7 +65,7 @@ CREATE TABLE `article` (
 
 INSERT INTO `article` (`article_id`, `name`, `category_id`, `excerpt`, `description`, `status`, `is_promoted`, `created_at`) VALUES
 (1, 'ACME HDD 512GB ', 5, 'Kratak opis...', 'Detaljan opis... ', 'avaliable', 0, '2022-11-02 22:32:36'),
-(2, 'Acme HD11 1TB', 5, 'Neki kratak tekst.', 'Neki duzi tekst o proizvodu.', 'avaliable', 0, '2022-11-06 20:47:06');
+(2, 'ACME HD11 1024GB', 5, 'Neki kratak tekst 2...', 'Neki malo duzi tekst o proizvodu 2...', 'visible', 1, '2022-11-06 20:47:06');
 
 -- --------------------------------------------------------
 
@@ -88,8 +88,8 @@ INSERT INTO `article_feature` (`article_feature_id`, `article_id`, `feature_id`,
 (1, 1, 1, '512GB'),
 (2, 1, 2, 'SATA3'),
 (3, 1, 3, 'SSD'),
-(4, 2, 1, '1TB'),
-(5, 2, 3, 'SSD');
+(6, 2, 1, '1024GB'),
+(7, 2, 2, 'SATA 3.0');
 
 -- --------------------------------------------------------
 
@@ -111,7 +111,8 @@ CREATE TABLE `article_price` (
 INSERT INTO `article_price` (`article_price_id`, `article_id`, `price`, `created_at`) VALUES
 (1, 1, '45.00', '2022-11-02 22:52:46'),
 (2, 1, '43.56', '2022-11-02 22:52:59'),
-(3, 2, '56.89', '2022-11-06 20:47:06');
+(3, 2, '56.89', '2022-11-06 20:47:06'),
+(4, 2, '57.11', '2022-11-22 16:52:04');
 
 -- --------------------------------------------------------
 
@@ -170,7 +171,7 @@ INSERT INTO `category` (`category_id`, `name`, `image_path`, `parent_category_id
 
 CREATE TABLE `feature` (
   `feature_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) NOT NULL DEFAULT '0',
+  `name` varchar(32) DEFAULT '',
   `category_id` int(10) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -180,6 +181,9 @@ CREATE TABLE `feature` (
 
 INSERT INTO `feature` (`feature_id`, `name`, `category_id`) VALUES
 (1, 'Kapacitet', 5),
+(18, 'Napon', 2),
+(20, 'Proizvodjac', 2),
+(19, 'Snaga', 2),
 (3, 'Tehnologija', 5),
 (2, 'Tip', 5);
 
@@ -213,8 +217,8 @@ CREATE TABLE `photo` (
 --
 
 INSERT INTO `photo` (`photo_id`, `article_id`, `image_path`) VALUES
-(1, 1, 'images/1/front.jpg'),
-(2, 1, 'images/1/label.jpg');
+(4, 1, '20221113-1318346681-hdd-icon.jpg'),
+(6, 2, '20221114-3441354954-hard-drive.jpg');
 
 -- --------------------------------------------------------
 
@@ -231,6 +235,16 @@ CREATE TABLE `user` (
   `phone_number` varchar(24) NOT NULL DEFAULT '0',
   `postal_adress` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `email`, `password_hash`, `forename`, `surname`, `phone_number`, `postal_adress`) VALUES
+(1, 'test@test.rs', 'DDAF35A193617ABACC417349AE20413112E6FA4E89A97EA20A9EEEE64B55D39A2192992A274FC1A836BA3C23A3FEEBBD454D4423643CE80E2A9AC94FA54CA49F', 'Pera', 'Peric', '+38765706486', 'Nepoznata adresa bb, Glavna luka, Nedodjija'),
+(14, 'test@test.com', 'EE26B0DD4AF7E749AA1A8EE3C10AE9923F618980772E473F8819A5D4940E0DB27AC185F8A0E1D5F84F88BC887FD67B143732C304CC5FA9AD8E6F57F50028A8FF', 'Test', 'Test', '+387657064865', 'Nepoznata adresa 56, Petrov Han, Nedodjija'),
+(15, 'njegos.ilic1986@gmail.com', '6935FFFC6FC1A8B4854ED7834B8816ABE39F64790B6E1776FF9F2859278904941E3206BE320543F965A9072D8309D119F23CC68866726BEFE32617DA9CA219CF', 'Njegos', 'Ilic', '+387657064865797997', 'Ysenburger Str. 32, Karben'),
+(17, 'njegos@gmail.com', '6935FFFC6FC1A8B4854ED7834B8816ABE39F64790B6E1776FF9F2859278904941E3206BE320543F965A9072D8309D119F23CC68866726BEFE32617DA9CA219CF', 'Njegos', 'Ilic', '+3876570648657979', 'Ysenburger Str. 32, Karben');
 
 --
 -- Indexes for dumped tables
@@ -295,7 +309,7 @@ ALTER TABLE `category`
 ALTER TABLE `feature`
   ADD PRIMARY KEY (`feature_id`),
   ADD UNIQUE KEY `uq_feature_name_category_id` (`name`,`category_id`) USING BTREE,
-  ADD KEY `fk_feature_category_id` (`category_id`);
+  ADD KEY `fk_feature_category_id` (`category_id`) USING BTREE;
 
 --
 -- Indexes for table `order`
@@ -340,13 +354,13 @@ ALTER TABLE `article`
 -- AUTO_INCREMENT for table `article_feature`
 --
 ALTER TABLE `article_feature`
-  MODIFY `article_feature_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `article_feature_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `article_price`
 --
 ALTER TABLE `article_price`
-  MODIFY `article_price_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `article_price_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `cart`
@@ -370,7 +384,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `feature`
 --
 ALTER TABLE `feature`
-  MODIFY `feature_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `feature_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -382,13 +396,13 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT for table `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `photo_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `photo_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables

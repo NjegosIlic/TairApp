@@ -14,17 +14,19 @@ import { Feature } from 'src/entities/feature.entity';
 import { Order } from 'src/entities/order.entity';
 import { Photo } from 'src/entities/photo.entity';
 import { User } from 'src/entities/user.entity';
-import { AdministratorController } from './controlers/api/administrator.controler';
+import { AdministratorController } from './controlers/api/administrator.controller';
 import { CategoryConrtoler } from './controlers/api/category.controller';
 import { CategoryService } from './services/category/category.service';
 import { ArticleService } from './services/article/article.service';
-import { ArticleConrtoler } from './controlers/api/article.controler';
+import { ArticleConrtoler } from './controlers/api/article.controller';
 import { authConotroller } from './controlers/api/auth.controller';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import { PhotoService } from './services/photo/photo.service';
 import { FeatureService } from './services/feature/feature.service';
-import { FeatureConrtoler } from './controlers/api/feature.controler';
+import { FeatureConrtoler } from './controlers/api/feature.controller';
 import { UserService } from './services/user/user.service';
+import { CartService } from './services/cart/cart.service';
+import { UserCartController } from './controlers/api/user.cart.controller';
 
 @Module({
   imports: [
@@ -70,6 +72,7 @@ import { UserService } from './services/user/user.service';
     ArticleConrtoler,
     authConotroller,
     FeatureConrtoler,
+    UserCartController
   ],
   providers: [
     AdministratorService, 
@@ -78,6 +81,7 @@ import { UserService } from './services/user/user.service';
     PhotoService,
     FeatureService,
     UserService,
+    CartService,
   ],
   exports: [
     AdministratorService,

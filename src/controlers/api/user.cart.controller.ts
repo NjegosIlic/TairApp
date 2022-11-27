@@ -7,7 +7,7 @@ import { Request } from "express";
 import { AddArticleToCartDto } from "src/dtos/cart/add.article.to.cart.dto";
 import { EditArticleInCartDto } from "src/dtos/cart/edit.article.in.cart.dto";
 import { Order } from "src/entities/order.entity";
-// import { OrderService } from "src/services/order/order.service";
+import { OrderService } from "src/services/order/order.service";
 import { ApiResponse } from "src/misc/api.response.class";
 // import { OrderMailer } from "src/services/order/order.mailer.service";
 
@@ -15,7 +15,7 @@ import { ApiResponse } from "src/misc/api.response.class";
 export class UserCartController {
     constructor(
         private cartService: CartService,
-        // private orderService: OrderService,
+        private orderService: OrderService,
        // private orderMailer: OrderMailer,
     ) { }
 
@@ -54,24 +54,24 @@ export class UserCartController {
         const cart = await this.getActiveCartForUserId(req.token.id);
         return await this.cartService.changeQuantity(cart.cartId, data.articleId, data.quantity);
     }
-/*
+
     // POST http://localhost:3000/api/user/cart/makeOrder/
     @Post('makeOrder')
     @UseGuards(RoleCheckedGuard)
     @AllowToRoles('user')
     async makeOrder(@Req() req: Request): Promise<Order | ApiResponse> {
         const cart = await this.getActiveCartForUserId(req.token.id);
-        const order = await this.orderService.add(cart.cartId);
+        return await this.orderService.add(cart.cartId);
 
-        if (order instanceof ApiResponse) {
-            return order;
-        }
+        // if (order instanceof ApiResponse) {
+         //   return order;
+       // }
 
-        await this.orderMailer.sendOrderEmail(order);
+       // await this.orderMailer.sendOrderEmail(order);
 
-        return order;
+      //  return order;
     }
-
+/*
     // POST http://localhost:3000/api/user/cart/orders/
     @Get('orders')
     @UseGuards(RoleCheckedGuard)
@@ -79,4 +79,4 @@ export class UserCartController {
     async getOrders(@Req() req: Request): Promise<Order[]> {
         return await this.orderService.getAllByUserId(req.token.id);
     } */
-}
+} 

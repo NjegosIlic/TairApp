@@ -7,8 +7,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   ManyToMany,
-  JoinTable,
-  QueryBuilder
+  JoinTable
 } from "typeorm";
 import { ArticleFeature } from "./article-feature.entity";
 import { Category } from "./category.entity";

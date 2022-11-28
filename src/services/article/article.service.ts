@@ -27,8 +27,8 @@ export class ArticleService extends TypeOrmCrudService<Article> {
         let newArticle: Article = new Article();
         newArticle.name = data.name;
         newArticle.categoryId = data.categoryId;
-        newArticle.excerpt = data.excert;
-        newArticle.description = data.decription;
+        newArticle.excerpt = data.excerpt;
+        newArticle.description = data.description;
 
         let savedArticle = await this.article.save(newArticle);
 
@@ -69,8 +69,8 @@ export class ArticleService extends TypeOrmCrudService<Article> {
 
         existingArticle.name        = data.name;
         existingArticle.categoryId  = data.categoryId;
-        existingArticle.excerpt     = data.excert;
-        existingArticle.description = data.decription;
+        existingArticle.excerpt     = data.excerpt;
+        existingArticle.description = data.description;
         existingArticle.status      = data.status;
         existingArticle.isPromoted  = data.isPromoted;
 

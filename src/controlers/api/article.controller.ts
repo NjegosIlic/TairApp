@@ -1,14 +1,13 @@
-import { Body, Controller, Delete, Param, Patch, Post, Req, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
-import { FileInterceptor } from "@nestjs/platform-express";
+import { Controller, Post, Body, Param, UseInterceptors, UploadedFile, Req, Delete, Patch, UseGuards } from "@nestjs/common";
 import { Crud } from "@nestjsx/crud";
 import { Article } from "src/entities/article.entity";
-import { AddArticleDto } from "src/dtos/article/add.article.dto";
 import { ArticleService } from "src/services/article/article.service";
-import { diskStorage } from 'multer';
+import { AddArticleDto } from "src/dtos/article/add.article.dto";
+import { FileInterceptor } from '@nestjs/platform-express';
 import { StorageConfig } from "config/storage.config";
-import { fileName } from "typeorm-model-generator/dist/src/NamingStrategy";
-import { Photo } from "src/entities/photo.entity";
+import { diskStorage } from "multer";
 import { PhotoService } from "src/services/photo/photo.service";
+import { Photo } from "src/entities/photo.entity";
 import { ApiResponse } from "src/misc/api.response.class";
 import * as fileType from 'file-type';
 import * as fs from 'fs';
@@ -16,6 +15,7 @@ import * as sharp from 'sharp';
 import { EditArticleDto } from "src/dtos/article/edit.article.dto";
 import { RoleCheckedGuard } from "src/misc/role.checker.guard";
 import { AllowToRoles } from "src/misc/allow.to.roles.descriptor";
+// import { ArticleSearchDto } from "src/dtos/article/article.search.dto";
 
 @Controller('api/article')
 @Crud({
@@ -33,13 +33,13 @@ import { AllowToRoles } from "src/misc/allow.to.roles.descriptor";
         join: {
             category: {
                 eager: true
-            }, 
+            },
             photos: {
                 eager: true
             },
             articlePrices: {
                 eager: true
-            }, 
+            },
             articleFeatures: {
                 eager: true
             },
@@ -48,11 +48,10 @@ import { AllowToRoles } from "src/misc/allow.to.roles.descriptor";
             }
         }
     },
-
     routes: {
         only: [
             'getOneBase',
-            'getManyBase'
+            'getManyBase',
         ],
         getOneBase: {
             decorators: [
@@ -66,19 +65,21 @@ import { AllowToRoles } from "src/misc/allow.to.roles.descriptor";
                 AllowToRoles('administrator', 'user')
             ],
         },
-    }
+    },
 })
-export class ArticleConrtoler {
-    constructor(public service: ArticleService, public photoService: PhotoService) { }
+export class ArticleController {
+    constructor(
+        public service: ArticleService,
+        public photoService: PhotoService,
+    ) { }
 
-    @Post()  // POST http://localhost:3000/api/article/
+    @Post() // POST http://localhost:3000/api/article/
     @UseGuards(RoleCheckedGuard)
     @AllowToRoles('administrator')
     createFullArticle(@Body() data: AddArticleDto) {
         return this.service.createFullArticle(data);
     }
 
-    
     @Patch(':id') // PATCH http://localhost:3000/api/article/2/
     @UseGuards(RoleCheckedGuard)
     @AllowToRoles('administrator')
@@ -137,27 +138,21 @@ export class ArticleConrtoler {
                 files: 1,
                 fileSize: StorageConfig.photo.maxSize,
             },
-
         })
     )
-    async uploadPhoto
-        (@Param('id') articleId: number, 
+    async uploadPhoto(
+        @Param('id') articleId: number,
         @UploadedFile() photo,
-        @Req() req 
-        
-        ): Promise <ApiResponse | Photo> {
-
+        @Req() req
+    ): Promise<ApiResponse | Photo> {
         if (req.fileFilterError) {
             return new ApiResponse('error', -4002, req.fileFilterError);
         }
-    
+
         if (!photo) {
             return new ApiResponse('error', -4002, 'File not uploaded!');
         }
-        
-        let imagePath = photo.filename; // u zapis u bazu podataka
 
-        // TODO: Real myme type check
         const fileTypeResult = await fileType.fromFile(photo.path);
         if (!fileTypeResult) {
             fs.unlinkSync(photo.path);
@@ -170,7 +165,6 @@ export class ArticleConrtoler {
             return new ApiResponse('error', -4002, 'Bad file content type!');
         }
 
-        // TODO: Save resided file
         await this.createResizedImage(photo, StorageConfig.photo.resize.thumb);
         await this.createResizedImage(photo, StorageConfig.photo.resize.small);
 
@@ -180,31 +174,32 @@ export class ArticleConrtoler {
 
         const savedPhoto = await this.photoService.add(newPhoto);
         if (!savedPhoto) {
-            return new ApiResponse('error', -4001)
+            return new ApiResponse('error', -4001);
         }
 
         return savedPhoto;
     }
-    
+
     async createResizedImage(photo, resizeSettings) {
         const originalFilePath = photo.path;
         const fileName = photo.filename;
 
-        const destinationFilePath = 
-            StorageConfig.photo.destination + 
-            resizeSettings.directory + 
+        const destinationFilePath =
+            StorageConfig.photo.destination +
+            resizeSettings.directory +
             fileName;
 
         await sharp(originalFilePath)
             .resize({
-                fit: 'cover', // contain
+                fit: 'cover',
                 width: resizeSettings.width,
                 height: resizeSettings.height,
             })
             .toFile(destinationFilePath);
     }
 
-    @Delete(':articleId/deletePhoto/:photoId') // http://localhost:3000/api/article/1/deletePhoto/45/
+    // http://localhost:3000/api/article/1/deletePhoto/45/
+    @Delete(':articleId/deletePhoto/:photoId')
     @UseGuards(RoleCheckedGuard)
     @AllowToRoles('administrator')
     public async deletePhoto(
@@ -223,13 +218,13 @@ export class ArticleConrtoler {
         }
 
         try {
-        fs.unlinkSync(StorageConfig.photo.destination + photo.imagePath);
-        fs.unlinkSync(StorageConfig.photo.destination +
-                      StorageConfig.photo.resize.thumb.directory +
-                      photo.imagePath);
-        fs.unlinkSync(StorageConfig.photo.destination +
-                      StorageConfig.photo.resize.small.directory + 
-                      photo.imagePath);
+            fs.unlinkSync(StorageConfig.photo.destination + photo.imagePath);
+            fs.unlinkSync(StorageConfig.photo.destination +
+                        StorageConfig.photo.resize.thumb.directory +
+                        photo.imagePath);
+            fs.unlinkSync(StorageConfig.photo.destination +
+                        StorageConfig.photo.resize.small.directory +
+                        photo.imagePath);
         } catch (e) { }
 
         const deleteResult = await this.photoService.deleteById(photoId);
@@ -237,8 +232,15 @@ export class ArticleConrtoler {
         if (deleteResult.affected === 0) {
             return new ApiResponse('error', -4004, 'Photo not found!');
         }
-              
-        return new ApiResponse('ok', 0, 'One photo deleted!');
 
+        return new ApiResponse('ok', 0, 'One photo deleted!');
     }
+/*
+    @Post('search')
+    @UseGuards(RoleCheckedGuard)
+    @AllowToRoles('administrator', 'user')
+    async search(@Body() data: ArticleSearchDto): Promise<Article[] | ApiResponse> {
+        return await this.service.search(data);
+    }
+    */
 }

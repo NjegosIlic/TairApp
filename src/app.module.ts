@@ -18,7 +18,7 @@ import { AdministratorController } from './controlers/api/administrator.controll
 import { CategoryConrtoler } from './controlers/api/category.controller';
 import { CategoryService } from './services/category/category.service';
 import { ArticleService } from './services/article/article.service';
-import { ArticleConrtoler } from './controlers/api/article.controller';
+import { ArticleController } from './controlers/api/article.controller';
 import { authConotroller } from './controlers/api/auth.controller';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import { PhotoService } from './services/photo/photo.service';
@@ -70,7 +70,7 @@ import { OrderService } from './services/order/order.service';
     AppController,
     AdministratorController,
     CategoryConrtoler,
-    ArticleConrtoler,
+    ArticleController,
     authConotroller,
     FeatureConrtoler,
     UserCartController

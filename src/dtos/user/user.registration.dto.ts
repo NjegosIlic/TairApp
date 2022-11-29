@@ -11,7 +11,7 @@ export class UserRegistrationDto {
 
     @Validator.IsNotEmpty()
     @Validator.IsString()
-    @Validator.Length(6, 128)
+    @Validator.Length(4, 128)
     password: string;
 
     @Validator.IsNotEmpty()

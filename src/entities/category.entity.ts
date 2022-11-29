@@ -42,7 +42,7 @@ export class Category {
 
   @Column({
     type: "int",
-    name: "parent__category_id",
+    name: "parent_category_id",
     nullable: true,
     unsigned: true
   })
@@ -60,7 +60,7 @@ export class Category {
     { onDelete: "NO ACTION", onUpdate: "CASCADE" }
   )
   @JoinColumn([
-    { name: "parent__category_id", referencedColumnName: "categoryId" }
+    { name: "parent_category_id", referencedColumnName: "categoryId" }
   ])
   parentCategory: Category;
 

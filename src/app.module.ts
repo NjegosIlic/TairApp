@@ -31,6 +31,7 @@ import { OrderService } from './services/order/order.service';
 import { MailerModule } from '@nestjs-modules/mailer'
 import { MailConfig } from 'config/mail.config';
 import { OrderMailer } from './services/order/order.mailer.service';
+import { AdministratorOrderController } from './controlers/api/administrator.order.controller';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -84,7 +85,8 @@ import { OrderMailer } from './services/order/order.mailer.service';
     ArticleController,
     authConotroller,
     FeatureConrtoler,
-    UserCartController
+    UserCartController,
+    AdministratorOrderController
   ],
   providers: [
     AdministratorService, 

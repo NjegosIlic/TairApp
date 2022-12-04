@@ -209,7 +209,7 @@ export class ArticleService extends TypeOrmCrudService<Article> {
 
         return articles;
 
-        /* 
+        /*  Ovo je radjeno inicijalno
         let articleIds = await (await builder.getMany()).map(article => article.articleId);
 
         return await this.article.find({

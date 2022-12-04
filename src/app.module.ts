@@ -19,7 +19,7 @@ import { CategoryConrtoler } from './controlers/api/category.controller';
 import { CategoryService } from './services/category/category.service';
 import { ArticleService } from './services/article/article.service';
 import { ArticleController } from './controlers/api/article.controller';
-import { authConotroller } from './controlers/api/auth.controller';
+import { AuthController } from './controlers/api/auth.controller';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import { PhotoService } from './services/photo/photo.service';
 import { FeatureService } from './services/feature/feature.service';
@@ -32,6 +32,8 @@ import { MailerModule } from '@nestjs-modules/mailer'
 import { MailConfig } from 'config/mail.config';
 import { OrderMailer } from './services/order/order.mailer.service';
 import { AdministratorOrderController } from './controlers/api/administrator.order.controller';
+import { UserToken } from './entities/user-token.entity';
+import { AdministratorToken } from './entities/administrator-token.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -52,7 +54,9 @@ import { AdministratorOrderController } from './controlers/api/administrator.ord
         Feature,
         Order,
         Photo,
-        User
+        User,
+        UserToken,
+        AdministratorToken,
       ]
     }),
     TypeOrmModule.forFeature([ 
@@ -66,7 +70,9 @@ import { AdministratorOrderController } from './controlers/api/administrator.ord
         Feature,
         Order,
         Photo,
-        User
+        User, 
+        UserToken,
+        AdministratorToken,
     ]),
     MailerModule.forRoot({
       // smtps://username:password@smtp.gmail@com
@@ -83,7 +89,7 @@ import { AdministratorOrderController } from './controlers/api/administrator.ord
     AdministratorController,
     CategoryConrtoler,
     ArticleController,
-    authConotroller,
+    AuthController,
     FeatureConrtoler,
     UserCartController,
     AdministratorOrderController
